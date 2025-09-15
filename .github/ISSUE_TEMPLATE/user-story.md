@@ -1,5 +1,5 @@
 ---
-name: user-story.mc
+name: user-story
 about: This template is for creating user stories
 title: ''
 labels: ''
