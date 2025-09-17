@@ -130,17 +130,17 @@ class TestAccountService(TestCase):
 
     def test_read_an_account(self):
         """It should Read a single Account"""
-        #Create an account
+        # Create an account
         account = self._create_accounts(1)[0]
-        
-        #Get the account
+
+        # Get the account
         resp = self.client.get(
             f"{BASE_URL}/{account.id}", content_type="application/json"
         )
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = resp.get_json()
 
-        #Check
+        # Check
         self.assertEqual(data["name"], account.name)
         self.assertEqual(data["email"], account.email)
         self.assertEqual(data["address"], account.address)
@@ -156,12 +156,12 @@ class TestAccountService(TestCase):
 
     def test_get_account_list(self):
         "It should get a list of accounts"
-        #Create list of accounts.
-        accounts = self._create_accounts(5)
-        #Get the list.
+        # Create list of accounts.
+        self._create_accounts(5)
+        # Get the list.
         resp = self.client.get(BASE_URL)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        #Check that we got 5 accounts
+        # Check that we got 5 accounts
         data = resp.get_json()
         self.assertEqual(len(data), 5)
 
@@ -188,11 +188,11 @@ class TestAccountService(TestCase):
 
     def test_delete_account(self):
         """It should Delete an Account"""
-        #create account
+        # create account
         account = self._create_accounts(1)[0]
-        #delete account
+        # delete account
         resp = self.client.delete(f"{BASE_URL}/{account.id}")
-        #check
+        # check
         self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_method_not_allowed(self):
@@ -204,7 +204,7 @@ class TestAccountService(TestCase):
         """It should return security headers"""
         resp = self.client.get('/', environ_overrides=HTTPS_ENVIRON)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        
+
         headers = {
             'X-Frame-Options': 'SAMEORIGIN',
             'X-Content-Type-Options': 'nosniff',
